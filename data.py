@@ -1,5 +1,6 @@
 class Urls:
     MAIN_PAGE_URL = 'https://qa-scooter.praktikum-services.ru/'
+    ORDER_PAGE_URL = 'https://qa-scooter.praktikum-services.ru/order'
     DZEN_URL = 'https://dzen.ru/?yredirect=true'
 
 
@@ -11,7 +12,7 @@ class OrderData:
         'address': 'ул Новаторов 34',
         'metro': 'Проспект Вернадского',
         'number': '+79261234567',
-        'delivery_date': '06.02.2025',
+        'delivery_date': '06.04.2025',
         'rent_days': 'сутки',
         'colour': 'чёрный жемчуг',
         'comment': 'Позвонить за 30 минут'
@@ -20,10 +21,10 @@ class OrderData:
     SECOND_ORDER = {
         'name': 'Иван',
         'last_name': 'Иванов',
-        'address': 'улица Большая Ордынка, 21с2',
+        'address': 'улица Большая Ордынка 21с2',
         'metro': 'Третьяковская',
-        'number': '+1234567890',
-        'delivery_date': '02.02.2025',
+        'number': '+71234567890',
+        'delivery_date': '05.04.2025',
         'rent_days': 'двое суток',
         'colour': 'серая безысходность',
         'comment': 'Не звонить!'
