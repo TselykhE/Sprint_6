@@ -5,18 +5,12 @@ from locators.base_page_locators import BasePageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as eс
 
-from locators.order_locators import OrderLocators
-
 
 class BasePage:
 
     @allure.step("Открытие браузера")
     def open_browser(self, browser):
         browser.get(Urls.MAIN_PAGE_URL)
-
-    @allure.step("Клик по кнопке Заказать в шапке лендинга")
-    def click_order_button(self, browser):
-        browser.find_element(*OrderLocators.ORDER_BUTTON_HEADER).click()
 
     @allure.step("Клик по лого 'Самокат'")
     def click_scooter_button(self, browser):
