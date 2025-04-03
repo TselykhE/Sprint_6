@@ -11,8 +11,3 @@ def browser():
     yield driver
 
     driver.quit()
-
-@pytest.fixture
-def base_page():
-    base_page = BasePage()
-    return base_page
