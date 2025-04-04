@@ -15,11 +15,5 @@ class TestMainPage:
         page.scroll_to_faq(browser)
         question_text = page.get_question(browser, index)
         answer_text = page.get_answers(browser, index)
-        try:
-            assert question_text == question
-        except Exception:
-            return('Ошибка!')
-        try:
-            assert answer_text == answer
-        except Exception:
-            return('Ошибка!')
+        assert question_text == question, f'Ожидаемый текст: "{question}", но получили: "{question_text}".'
+        assert answer_text == answer, f'Ожидаемый текст: "{answer}", но получили: "{answer_text}".'
