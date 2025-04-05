@@ -1,13 +1,9 @@
-import pytest
 from selenium import webdriver
-from pages.base_page import BasePage
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.service import Service
 
 
-@pytest.fixture(scope="function")
-def browser():
-    driver = webdriver.Firefox()
+def get_driver():
+    driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
     driver.maximize_window()
-
-    yield driver
-
-    driver.quit()
+    return driver

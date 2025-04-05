@@ -1,19 +1,18 @@
 import allure
 import pytest
-from conftest import browser
+
 from pages.main_page import MainPage
-from data import QuestionsAndAnswers
+from data import QuestionsAndAnswers, Urls
+from tests.base_test import BaseTest
 
 
-class TestMainPage:
+class TestMainPage(BaseTest):
     @allure.title('Проверка выпадающего списка в разделе "Вопросы о важном"')
     @allure.description('Проверяем, что по клику на стрелочку с вопросом, открывается соответсвующий ответ')
-    @pytest.mark.parametrize('index, question, answer', QuestionsAndAnswers.QUESTIONS_AND_ANSWERS_LIST)
-    def test_check_question_and_answer(self, browser, index, question, answer):
-        page = MainPage()
-        page.open_browser(browser)
-        page.scroll_to_faq(browser)
-        question_text = page.get_question(browser, index)
-        answer_text = page.get_answers(browser, index)
-        assert question_text == question, f'Ожидаемый текст: "{question}", но получили: "{question_text}".'
-        assert answer_text == answer, f'Ожидаемый текст: "{answer}", но получили: "{answer_text}".'
+    @pytest.mark.parametrize('index, question, answer', QuestionsAndAnswers.QUESTIONS)
+    def test_check_question_and_answer(self, question_number, expected_text):
+        page = MainPage(self.driver)
+        page.open_browser(Urls.MAIN_PAGE_URL)
+        page.open_question(question_number)
+
+        assert page.check_answer_text(expected_text,question_number)

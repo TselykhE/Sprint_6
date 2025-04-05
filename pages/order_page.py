@@ -2,96 +2,95 @@ import allure
 
 from locators.order_locators import OrderLocators
 from selenium.webdriver.common.keys import Keys
-from conftest import browser
 from pages.base_page import BasePage
 
 
 class OrderPage(BasePage):
+    def __init__(self, driver):
+        super(OrderPage, self).__init__(driver)
 
     @allure.step("Клик по кнопке Заказать в шапке лендинга")
-    def click_first_button(self, browser):
-        browser.find_element(*OrderLocators.ORDER_BUTTON_HEADER).click()
+    def click_first_button(self):
+        self.find_element(*OrderLocators.ORDER_BUTTON_HEADER).click()
 
     @allure.step("Клик по кнопке Заказать в центре")
-    def click_second_button(self, browser):
-        element = browser.find_element(*OrderLocators.ORDER_CENTER_BUTTON)
-        browser.execute_script("arguments[0].scrollIntoView(true);", element)
+    def click_second_button(self):
+        element = self.find_element(*OrderLocators.ORDER_CENTER_BUTTON)
+        self.scroll_to_element(element)
         element.click()
 
     @allure.step("Заполнение поля Имя")
-    def user_name(self, browser, name):
-        browser.find_element(*OrderLocators.NAME).send_keys(name)
+    def user_name(self, name):
+        self.find_element(*OrderLocators.NAME).send_keys(name)
 
     @allure.step("Заполнение поля Фамилия")
-    def user_last_name(self, browser, last_name):
-        browser.find_element(*OrderLocators.LAST_NAME).send_keys(last_name)
+    def user_last_name(self, last_name):
+        self.find_element(*OrderLocators.LAST_NAME).send_keys(last_name)
 
     @allure.step("Заполнение поля Адрес")
-    def user_address(self, browser, address):
-        browser.find_element(*OrderLocators.ADDRESS).send_keys(address)
+    def user_address(self, address):
+        self.find_element(*OrderLocators.ADDRESS).send_keys(address)
 
     @allure.step("Заполнение поля Метро")
-    def metro(self, browser, metro):
-        browser.find_element(*OrderLocators.METRO).send_keys(metro)
-        browser.find_element(*OrderLocators.LIST_STATION).click()
+    def metro(self, metro):
+        self.find_element(*OrderLocators.METRO).send_keys(metro)
+        self.find_element(*OrderLocators.LIST_STATION).click()
 
     @allure.step("Заполнение поля Телефон")
-    def user_phone(self, browser, phone):
-        browser.find_element(*OrderLocators.NUMBER).send_keys(phone)
+    def user_phone(self, phone):
+        self.find_element(*OrderLocators.NUMBER).send_keys(phone)
 
     @allure.step('Клик по кнопке "Далее" в форме информации о пользователе')
-    def click_button_next(self, browser):
-        browser.find_element(*OrderLocators.NEXT_BUTTON).click()
+    def click_button_next(self):
+        self.find_element(*OrderLocators.NEXT_BUTTON).click()
 
     @allure.step("Заполнение поля Дата доставки")
-    def date_of_delivery(self, browser, data):
-        (browser.find_element(*OrderLocators.DATE_DELIVERY)
+    def date_of_delivery(self, data):
+        (self.find_element(*OrderLocators.DATE_DELIVERY)
          .send_keys(data, Keys.ENTER))
 
     @allure.step("Заполнение поля Время аренды")
-    def rental_time(self, browser, day):
-        browser.find_element(*OrderLocators.RENT_TIME).click()
+    def rental_time(self, day):
+        self.find_element(*OrderLocators.RENT_TIME).click()
         select_rent_time_locator = (OrderLocators.SELECT_RENT_TIME[0], OrderLocators.SELECT_RENT_TIME[1].format(day))
-        browser.find_element(*select_rent_time_locator).click()
+        self.find_element(*select_rent_time_locator).click()
 
     @allure.step("Выбор цвета")
-    def checkbox_color(self, browser, color):
+    def checkbox_color(self, color):
         if color == 'чёрный жемчуг':
-            browser.find_element(*OrderLocators.BLACK_COLOR_CHECKBOX).click()
+            self.find_element(*OrderLocators.BLACK_COLOR_CHECKBOX).click()
         elif color == 'серая безысходность':
-            browser.find_element(*OrderLocators.GREY_COLOR_CHECKBOX).click()
+            self.find_element(*OrderLocators.GREY_COLOR_CHECKBOX).click()
 
     @allure.step("Заполнение поля Комментарии к заказу")
-    def comment_for_courier(self, browser, comment):
-        browser.find_element(*OrderLocators.COMMENT).send_keys(comment)
+    def comment_for_courier(self, comment):
+        self.find_element(*OrderLocators.COMMENT).send_keys(comment)
 
     @allure.step("Клик по кнопке Заказать")
-    def click_button_order(self, browser):
-        browser.find_element(*OrderLocators.ORDER_BUTTON).click()
+    def click_button_order(self):
+        self.find_element(*OrderLocators.ORDER_BUTTON).click()
 
     @allure.step("Клик по кнопке 'Да' в окне подтверждения заказа")
-    def click_button_confirmations(self, browser):
-        browser.find_element(*OrderLocators.YES_BUTTON).click()
+    def click_button_confirmations(self):
+        self.find_element(*OrderLocators.YES_BUTTON).click()
 
     @allure.step("Проверка текста в окне подтверждения заказа")
-    def confirmation_window(self, browser):
-        text = browser.find_element(*OrderLocators.ORDER_COMPLETED).text
+    def confirmation_window(self):
+        text = self.find_element(*OrderLocators.ORDER_COMPLETED).text
         assert 'Заказ оформлен' in text
 
     @allure.step("Полный позитивный сценарий")
-    def user_rent_order(self,
-                        browser, name, last_name, address, metro, number,
-                        delivery_date, rent_days, colour, comment):
-        self.user_name(browser, name)
-        self.user_last_name(browser, last_name)
-        self.user_address(browser, address)
-        self.metro(browser, metro)
-        self.user_phone(browser, number)
-        self.click_button_next(browser)
-        self.date_of_delivery(browser, delivery_date)
-        self.rental_time(browser, rent_days)
-        self.checkbox_color(browser, colour)
-        self.comment_for_courier(browser, comment)
-        self.click_button_order(browser)
-        self.click_button_confirmations(browser)
-        self.confirmation_window(browser)
+    def user_rent_order(self, name, last_name, address, metro, number, delivery_date, rent_days, colour, comment):
+        self.user_name(name)
+        self.user_last_name(last_name)
+        self.user_address(address)
+        self.metro(metro)
+        self.user_phone(number)
+        self.click_button_next()
+        self.date_of_delivery(delivery_date)
+        self.rental_time(rent_days)
+        self.checkbox_color(colour)
+        self.comment_for_courier(comment)
+        self.click_button_order()
+        self.click_button_confirmations()
+        self.confirmation_window()
