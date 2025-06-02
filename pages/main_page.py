@@ -8,16 +8,24 @@ class MainPage(BasePage):
     def __init__(self, driver):
         super(MainPage, self).__init__(driver)
 
-    @allure.step("Открыть вопрос")
-    def open_question(self, question_number):
-        question_locator = MainPageLocators.question_number(question_number)
-        self.scroll_to_element(MainPageLocators.FAQ)
-        self.wait_for_open_window(question_locator)
-        self.scroll_to_element(question_locator).click()
+    @allure.step('Клик по вопросу')
+    def click_to_question(self, num):
+        locator_q_formatted = self.format_locators(MainPageLocators.QUESTION, num)
+        self.scroll_to_the_last_question(MainPageLocators.QUESTION_TO_SCROLL)
+        self.click_on_element(locator_q_formatted)
 
-    @allure.step("Сравни текст ответа")
-    def check_answer_text(self, expected_text, answer_number):
-        answer_locator = MainPageLocators.answer_number(answer_number)
-        self.wait_for_open_window(answer_locator)
-        actual_text = self.get_text_answer(answer_locator)
-        return actual_text == expected_text
+    @allure.step('Получение ответа')
+    def get_answer(self, num):
+        locator_a_formatted = self.format_locators(MainPageLocators.ANSWER, num)
+        return self.get_text_answer(locator_a_formatted)
+
+    @allure.step('Получение текста ответа')
+    def check_question_answer(self, num):
+        self.click_to_question(num)
+        return self.get_answer(num)
+
+    @allure.step('Проверка ответа')
+    def check_answer(self, num, text_answer):
+        self.click_to_question(num)
+        text = self.get_answer(num)
+        return text == text_answer

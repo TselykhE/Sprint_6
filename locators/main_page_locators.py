@@ -3,12 +3,6 @@ from selenium.webdriver.common.by import By
 
 class MainPageLocators:
 
-    FAQ = (By.CLASS_NAME, "Home_FAQ__3uVm4")
-
-    @staticmethod
-    def question_number(quest):
-        return By.XPATH, f"//div[@id='accordion__heading-{quest}']"
-
-    @staticmethod
-    def answer_number(quest):
-        return By.XPATH, f"//div[@id='accordion__panel-{quest}']//p"
+    QUESTION = By.XPATH, "//div[@id='accordion__heading-{}']"
+    ANSWER = By.XPATH, "//div[@id='accordion__panel-{}']"
+    QUESTION_TO_SCROLL = By.XPATH, "//div[@id='accordion__heading-7']"
