@@ -29,3 +29,16 @@ class MainPage(BasePage):
         self.click_to_question(num)
         text = self.get_answer(num)
         return text == text_answer
+
+    @allure.step("Клик по кнопке Заказать в шапке лендинга")
+    def click_first_button(self):
+        self.find_element_and_wait(MainPageLocators.ORDER_BUTTON_HEADER).click()
+
+    @allure.step("Клик по кнопке Заказать в центре")
+    def click_second_button(self):
+        element = self.find_element_and_wait(MainPageLocators.ORDER_CENTER_BUTTON)
+        if element.is_displayed():
+            self.scroll_to_element(element)
+            element.click()
+        else:
+            raise AssertionError("Элемент не отображается на странице.")

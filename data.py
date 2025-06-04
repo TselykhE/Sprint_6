@@ -12,7 +12,7 @@ class OrderData:
         'address': 'ул Новаторов 34',
         'metro': 'Проспект Вернадского',
         'number': '+79261234567',
-        'delivery_date': '04.06.2025',
+        'delivery_date': '06.06.2025',
         'rent_days': 'сутки',
         'colour': 'чёрный жемчуг',
         'comment': 'Позвонить за 30 минут'
@@ -24,7 +24,7 @@ class OrderData:
         'address': 'улица Большая Ордынка 21с2',
         'metro': 'Третьяковская',
         'number': '+71234567890',
-        'delivery_date': '04.06.2025',
+        'delivery_date': '06.06.2025',
         'rent_days': 'двое суток',
         'colour': 'серая безысходность',
         'comment': 'Не звонить!'

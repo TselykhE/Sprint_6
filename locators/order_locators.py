@@ -2,8 +2,6 @@ from selenium.webdriver.common.by import By
 
 
 class OrderLocators:
-    ORDER_BUTTON_HEADER = [By.XPATH, "//button[text()='Заказать']"]
-    ORDER_CENTER_BUTTON = [By.XPATH, "//div[contains(@class, 'Home_FinishButton__1_cWm')]//button"]
 
     # Данные пользователя
     NAME = [By.XPATH, "//input[@placeholder='* Имя']"]

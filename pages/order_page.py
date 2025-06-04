@@ -9,15 +9,6 @@ class OrderPage(BasePage):
     def __init__(self, driver):
         super(OrderPage, self).__init__(driver)
 
-    @allure.step("Клик по кнопке Заказать в шапке лендинга")
-    def click_first_button(self):
-        self.find_element_and_wait(OrderLocators.ORDER_BUTTON_HEADER).click()
-
-    @allure.step("Клик по кнопке Заказать в центре")
-    def click_second_button(self):
-        element = self.find_element_and_wait(OrderLocators.ORDER_CENTER_BUTTON)
-        self.driver.execute_script("arguments[0].click();", element)
-
     @allure.step("Заполнение поля Имя")
     def user_name(self, name):
         self.find_element_and_wait(OrderLocators.NAME).send_keys(name)
@@ -76,7 +67,7 @@ class OrderPage(BasePage):
     @allure.step("Проверка текста в окне подтверждения заказа")
     def confirmation_window(self):
         text = self.find_element_and_wait(OrderLocators.ORDER_COMPLETED).text
-        assert 'Заказ оформлен' in text
+        return text
 
     @allure.step("Полный позитивный сценарий")
     def user_rent_order(self, name, last_name, address, metro, number, delivery_date, rent_days, colour, comment):

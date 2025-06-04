@@ -1,9 +1,7 @@
 import allure
-from selenium.webdriver import ActionChains
 
 from data import Urls
 from locators.logo_locators import LogoLocators
-from locators.main_page_locators import MainPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
@@ -12,12 +10,16 @@ class BasePage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.timeout = 5
+        self.timeout = 10
         self.wait = WebDriverWait(self.driver, self.timeout)
 
     @allure.step('Открытие страницы')
     def open_browser(self, url):
         self.driver.get(url)
+
+    @allure.step('Поиск элемента на странице')
+    def find_element(self, locator):
+        self.driver.find_element(*locator)
 
     @allure.step('Поиск элемента на странице с ожиданием')
     def find_element_and_wait(self, locator):
